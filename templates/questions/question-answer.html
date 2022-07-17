@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ question }}{% endblock %}
+
+{% block content %}
+
+    <div class="frame mt-4">
+        <div class="circle"></div>
+        <div class="question-container flex items-center">
+            <div class="text text-white">
+                {{ question.content }}
+            </div>
+        </div>
+    </div>
+
+    <form method="post" class="mt-8">
+        {% csrf_token %}
+        <div class="textarea-overlay">
+            {{ form.content }}
+            <span>0/250</span>
+        </div>
+        <button class="mx-auto mt-2 block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                type="submit">
+            Answer
+        </button>
+    </form>
+
+    <script>
+        window.onload = () => {
+            const colors = ['#1771F1', '#00CF91', '#F85C50', '#FF7A2F', '#FF2970']
+            const circles = document.querySelectorAll('.circle')
+            for (let i = 0; i < circles.length; i++) {
+                circles[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]
+                circles[i].style.left = Math.ceil(Math.random() * 60) + "%"
+
+                if (circles[i].parentElement.offsetHeight > 450) {
+                    circles[i].style.top = Math.ceil(Math.random() * 120) - 30 + "%"
+                } else {
+                    circles[i].style.top = Math.ceil(Math.random() * 130) - 60 + "%"
+                }
+            }
+        }
+
+        let textarea = document.querySelector('textarea')
+        let span = document.querySelector('.textarea-overlay span')
+        textarea.addEventListener('input', () => {
+            span.innerText = `${textarea.value.length}/250`
+            if (textarea.value.length > 250) {
+                span.style.color = 'red'
+            } else {
+                span.style.color = '#00d660'
+            }
+        })
+    </script>
+{% endblock %}

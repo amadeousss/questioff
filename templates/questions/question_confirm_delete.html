@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Delete question{% endblock %}
+{% block content %}
+    <div class="frame mt-4">
+        <div class="circle"></div>
+        <div class="question-container items-center">
+            <div class="text text-white">
+                {{ question.content }}
+            </div>
+        </div>
+        {% if question.answer %}
+            <span class="z-10 text-white mt-2 mb-2">|</span>
+            <div class="question-container flex items-center">
+                <div class="text-right text text-white justify-self-end w-full">
+                    {{ question.answer.content }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+        <form method="post" class="my-6 block container max-w-md mx-auto">{% csrf_token %}
+            <p class="text-center">Are you sure you want to <b>delete</b> this question?</p>
+            <input class="cursor-pointer text-center mx-auto mt-2 block bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                   type="submit" value="Confirm">
+        </form>
+
+        <script>
+            window.onload = () => {
+                const colors = ['#1771F1', '#00CF91', '#F85C50', '#FF7A2F', '#FF2970']
+                const circles = document.querySelectorAll('.circle')
+                for (let i = 0; i < circles.length; i++) {
+                    circles[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]
+                    circles[i].style.left = Math.ceil(Math.random() * 60) + "%"
+
+                    if (circles[i].parentElement.offsetHeight > 450) {
+                        circles[i].style.top = Math.ceil(Math.random() * 120) - 30 + "%"
+                    } else {
+                        circles[i].style.top = Math.ceil(Math.random() * 130) - 60 + "%"
+                    }
+
+                }
+            }
+        </script>
+{% endblock %}

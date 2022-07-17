@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    {% if object_list %}
+        <h1 class="text-center my-14 text-6xl">Search Results</h1>
+    {% else %}
+        <h1 class="text-center my-14 text-6xl">No such users</h1>
+    {% endif %}
+    <ul class="userlist">
+        {% for user in object_list %}
+            <li class="mb-2">
+                <a href="{% url 'user' user.username %}">
+                    <div class="hover:shadow-md duration-200 rounded p-5 shadow container block mx-auto max-w-md border">
+                        @{{ user.username }}
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

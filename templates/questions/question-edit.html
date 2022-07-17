@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ question }}{% endblock %}
+
+{% block content %}
+    <div class="frame-wrapper relative mx-auto" style="max-width: 900px;">
+        <div class="frame mt-4">
+            <div class="circle"></div>
+            <div class="question-container items-center">
+                <div class="text text-white">
+                    {{ question.content }}
+                </div>
+            </div>
+            {% if question.answer %}
+                <span class="z-10 text-white mt-2 mb-2">|</span>
+                <div class="question-container flex items-center">
+                    <div class="text-right text text-white justify-self-end w-full">
+                        {{ question.answer.content }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="text-gray-400 mx-auto max-w-sm info-time">
+        <p>{{ question.created_at }}</p>
+        {% if question.answer %}
+            | <p>{{ question.answer.created_at }}</p>
+        {% endif %}
+
+    </div>
+
+    <div class="mb-12 mt-4 container max-w-sm mx-auto">
+        {% if not question.answer %}
+            <a class="text-center mx-auto mt-2 block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+               href="{% url 'question-answer' question.id %}">Answer</a>
+        {% endif %}
+        <a class="text-center mx-auto mt-2 block bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+           href="{% url 'question-delete' question.id %}">Delete</a>
+    </div>
+    <script>
+        window.onload = () => {
+            const colors = ['#1771F1', '#00CF91', '#F85C50', '#FF7A2F', '#FF2970']
+            const circles = document.querySelectorAll('.circle')
+            for (let i = 0; i < circles.length; i++) {
+                circles[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]
+                circles[i].style.left = Math.ceil(Math.random() * 60) + "%"
+
+                if (circles[i].parentElement.offsetHeight > 450) {
+                    circles[i].style.top = Math.ceil(Math.random() * 120) - 30 + "%"
+                } else {
+                    circles[i].style.top = Math.ceil(Math.random() * 130) - 60 + "%"
+                }
+
+            }
+        }
+
+    </script>
+{% endblock %}

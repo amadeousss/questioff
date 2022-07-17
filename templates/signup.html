@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+    <div class="form-wrapper max-w-md mx-auto">
+        <h1 class="text-center my-14 text-6xl">Sign up</h1>
+        <form id="login" method="post">
+            {% csrf_token %}
+            <label>{{ form.email.label }}:</label>
+            {{ form.email }}
+            {{ form.errors.email }} {# username errors #}
+
+            <label>{{ form.username.label }}:</label>
+            {{ form.username }}
+            {{ form.errors.username }} {# username errors #}
+
+            <label>{{ form.password1.label }}:</label>
+            {{ form.password1 }}
+
+            <label>{{ form.password2.label }}:</label>
+            {{ form.password2 }}
+
+            {% if not form.errors.username %}
+                {{ form.errors.password2 }} {# password errors #}
+            {% endif %}
+
+            <button class="mx-auto mt-2 block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                    type="submit">
+                Sign Up
+            </button>
+        </form>
+    </div>
+    <style>
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form#login input[type=text], form#login input[type=password], form#login input[type=email] {
+            border: 1px solid black;
+            outline: none;
+            font-family: "Inter", sans-serif;
+            display: block;
+            margin-bottom: 1em;
+            padding: 2px 5px;
+            width: 100%;
+            border-radius: 0.25rem;
+        }
+
+        form#login input {
+            margin-top: 5px;
+        }
+
+        .errorlist li {
+            color: #f16060;
+            margin-bottom: 1em;
+        }
+
+        label {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+    </style>
+{% endblock %}
