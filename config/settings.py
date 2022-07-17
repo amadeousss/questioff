@@ -91,7 +91,7 @@ DATABASES = {
     #     'PORT': '5432',
     #     'USER': 'postgres'
     # }
-    "default": env.dj_db_url("DATABASE_URL")
+    "default": dj_database_url.config()
 }
 
 db_from_env = dj_database_url.config()
@@ -152,4 +152,4 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 CSRF_COOKIE_SECURE = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
