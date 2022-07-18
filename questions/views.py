@@ -81,5 +81,5 @@ class SearchResultsView(ListView):
 
     def get_queryset(self):  # new
         query = self.request.GET.get("q")
-        object_list = CustomUser.objects.filter(username__startswith=query)[:5]
+        object_list = CustomUser.objects.filter(username__istartswith=query)[:5]
         return object_list
