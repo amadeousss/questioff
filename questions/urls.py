@@ -8,6 +8,6 @@ urlpatterns = [
     path('delete/<int:pk>', QuestionDelete.as_view(), name="question-delete"),
     path('answer/<int:pk>', QuestionAnswer.as_view(), name="question-answer"),
     path('search', SearchResultsView.as_view(), name="user-search"),
-    path('<slug:username>', user_view, name="user"),
+    path('<str:username>', user_view, name="user"),
     path('users/', include('users.urls'))
 ]
